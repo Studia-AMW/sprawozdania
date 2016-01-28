@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Lab3 - Siemaszko - WebWorkers</title>
+  <meta name="description" content="Lab3 - Siemaszko - WebWorkers">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+<p>Silnia kolejnych liczb: <output id="wynik"></output></p>
+<button onclick="startWorker()">Licz silnię</button> 
+<button onclick="stopWorker()">Zatrzymaj liczenie</button>
+<br><br>
+
+<script>
+var w;
+
+function startWorker() {
+    if(typeof(Worker) !== "undefined") {
+        if(typeof(w) == "undefined") {
+            w = new Worker("webworkers.js");
+        }
+        w.onmessage = function(event) {
+            document.getElementById("wynik").innerHTML = event.data;
+        };
+    } else {
+        document.getElementById("wynik").innerHTML = "WebWorkers nie jest wspierany.";
+    }
+}
+
+function stopWorker() { 
+    w.terminate();
+    w = undefined;
+}
+</script>
+
+</body>
+</html>

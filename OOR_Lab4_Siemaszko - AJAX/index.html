@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Lab4 - Siemaszko - AJAX</title>
+  <meta name="description" content="Lab4 - Siemaszko - AJAX">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+<div id="karta_oswiecenia"><h2>Kliknij przycisk i zostań oświecony.</h2></div>
+
+<button type="button" onclick="loadDoc()">Oświeć mnie</button>
+
+<script>
+var i = 1 ;
+
+function loadDoc() {
+
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		  document.getElementById("karta_oswiecenia").innerHTML = xhttp.responseText;
+		}
+	  };
+	  xhttp.open("GET", "karty/"+i+".txt", true);
+	  xhttp.send();
+	  i = i+1 ;	  
+	
+}
+</script>
+
+</body>
+</html>
